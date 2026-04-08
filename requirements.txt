@@ -1,0 +1,30 @@
+# ── Core data ────────────────────────────────────────────────────────────────
+fastf1>=3.3.0
+pandas>=2.2.0
+numpy>=1.26.0
+pyarrow>=14.0.0          # parquet storage
+requests>=2.31.0          # Jolpica API calls
+python-dotenv>=1.0.0
+
+# ── Machine Learning ──────────────────────────────────────────────────────────
+scikit-learn>=1.4.0
+lightgbm>=4.3.0
+xgboost>=2.0.0
+shap>=0.44.0              # model explainability
+mlflow>=2.10.0            # experiment tracking
+
+# ── Statistics & Simulation ───────────────────────────────────────────────────
+scipy>=1.12.0
+numba>=0.59.0             # JIT-compiled Monte Carlo inner loops
+
+# ── Utilities ────────────────────────────────────────────────────────────────
+tqdm>=4.66.0              # progress bars
+joblib>=1.3.0             # parallel processing
+
+# ── Visualisation ────────────────────────────────────────────────────────────
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# ── Notebooks ────────────────────────────────────────────────────────────────
+jupyter>=1.0.0
+ipykernel>=6.29.0

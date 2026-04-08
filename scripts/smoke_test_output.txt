@@ -1,0 +1,43 @@
+﻿.venv\Scripts\python.exe : 
+Traceback (most recent call 
+last):
+At line:1 char:1
++ .venv\Scripts\python.exe 
+scripts\smoke_test.py 2>&1 | 
+Out-File -FileP ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: (Traceba  
+  ck (most recent call las   
+ t)::String) [], RemoteEx    
+ception
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+  File "C:\Users\bugsm\Docume
+nts\Antigravity\f1-predictor\
+scripts\smoke_test.py", line 
+356, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\bugsm\Docume
+nts\Antigravity\f1-predictor\
+scripts\smoke_test.py", line 
+307, in main
+    print("\n" + "\u2550" * 
+55)
+    ~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\enco
+dings\cp1252.py", line 19, 
+in encode
+    return codecs.charmap_enc
+ode(input,self.errors,encodin
+g_table)[0]
+           ~~~~~~~~~~~~~~~~~~
+~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^
+UnicodeEncodeError: 
+'charmap' codec can't encode 
+characters in position 2-56: 
+character maps to <undefined>

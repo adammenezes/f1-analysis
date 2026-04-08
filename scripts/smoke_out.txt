@@ -1,0 +1,132 @@
+C:\Users\bugsm\Documents\Antigravity\f1-predictor\src\data\features.py:209: FutureWarning: Downcasting object dtype arrays on .fillna, .ffill, .bfill is deprecated and will change in a future version. Call result.infer_objects(copy=False) instead. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`
+  df["is_wet_race"] = df["is_wet_race"].fillna(False).astype(int)
+
+═══════════════════════════════════════════════════════
+  F1 Predictor — Smoke Test
+  Testing against: 2023 season (minimal data)
+═══════════════════════════════════════════════════════
+
+───────────────────────────────────────────────────────
+  1. Module imports
+    Imported all core modules successfully.
+  [OK]  PASSED
+
+───────────────────────────────────────────────────────
+  2. Constructor lineage map
+    Red Bull Racing           → red_bull_line
+    Ferrari                   → ferrari_line
+    Mercedes                  → mercedes_line
+    Aston Martin              → aston_martin_line
+    Alpine                    → alpine_line
+    McLaren                   → mclaren_line
+    Alfa Romeo                → sauber_line
+    Haas F1 Team              → haas_line
+    AlphaTauri                → alphatauri_line
+    Williams                  → williams_line
+  [OK]  PASSED
+
+───────────────────────────────────────────────────────
+  3. Jolpica API (2023 season)
+    Rows: 100 | Rounds: 5 | Drivers: 20
+    Regulation era: ['ground_effect']
+ season  round      driver_id constructor_lineage_id  finish_position
+   2023      1 max_verstappen          red_bull_line                1
+   2023      1          perez          red_bull_line                2
+   2023      1         alonso      aston_martin_line                3
+   2023      1          sainz           ferrari_line                4
+   2023      1       hamilton          mercedes_line                5
+  [OK]  PASSED
+
+───────────────────────────────────────────────────────
+  4. FastF1 (2023 season)
+    Rows: 440 | Rounds: 22 | Wet races (any driver): 100
+    Track temp range: 18.0°C – 48.6°C
+ season  round driver_id constructor_lineage_id  q1_time_s  race_track_temp  race_rainfall
+   2023      1       ver          red_bull_line     91.295        31.011801          False
+   2023      1       per          red_bull_line     91.479        31.011801          False
+   2023      1       alo      aston_martin_line     91.158        31.011801          False
+   2023      1       sai           ferrari_line     90.993        31.011801          False
+   2023      1       ham          mercedes_line     91.543        31.011801          False
+  [OK]  PASSED
+
+───────────────────────────────────────────────────────
+  5. Feature pipeline
+    Feature matrix shape: (539, 29)
+    Target shape: (539,)
+    Feature columns (24):
+      grid_position                       missing=0
+      quali_gap_to_pole_pct               missing=104
+      quali_gap_zscore                    missing=104
+      driver_rolling_pos_3r               missing=42
+      driver_rolling_pos_5r               missing=42
+      driver_rolling_pos_10r              missing=42
+      team_rolling_pos_3r                 missing=13
+      team_rolling_pos_5r                 missing=13
+      team_rolling_pos_10r                missing=13
+      driver_circuit_avg_pos              missing=539
+      team_circuit_avg_pos                missing=248
+      driver_dnf_rate_10r                 missing=42
+      team_dnf_rate_10r                   missing=13
+      driver_elo                          missing=0
+      constructor_elo                     missing=0
+      seasons_since_reg_change            missing=0
+      championship_gap_driver             missing=0
+      championship_gap_team               missing=0
+      regulation_era                      missing=0
+      is_wet_race                         missing=0
+      mean_track_temp                     missing=0
+      mean_air_temp                       missing=0
+      mean_wind_speed                     missing=0
+      mean_humidity                       missing=0
+  [OK]  PASSED
+
+───────────────────────────────────────────────────────
+  6. LightGBM train+predict
+    Trained on 539 rows → predicting 2023 Round 22
+    Predicted order (first 5):
+driver_id  predicted_position    score
+      ver                   1 0.998485
+      lec                   2 1.937149
+      rus                   3 2.946803
+      per                   4 3.978527
+      nor                   5 5.221412
+  [OK]  PASSED
+
+───────────────────────────────────────────────────────
+  7. Directory structure
+      [OK]  DIR   data\raw\fastf1_cache
+      [OK]  DIR   data\processed
+      [OK]  DIR   src\data
+      [OK]  DIR   src\models
+      [OK]  DIR   src\validation
+      [OK]  FILE  src\data\constructor_lineage.py  (6 KB)
+      [OK]  FILE  src\data\loader.py  (15 KB)
+      [OK]  FILE  src\data\features.py  (13 KB)
+      [OK]  FILE  src\models\elo.py  (8 KB)
+      [OK]  FILE  src\models\xgboost_model.py  (7 KB)
+      [OK]  FILE  src\models\monte_carlo.py  (15 KB)
+      [OK]  FILE  main.py  (12 KB)
+      [OK]  FILE  .env.example  (2 KB)
+      [OK]  FILE  requirements.txt  (1 KB)
+      [OK]  PARQ  data\processed\hist_results_2023_2023.parquet  (12 KB)
+      [OK]  PARQ  data\processed\ff1_results_2023_2023.parquet  (27 KB)
+  [OK]  PASSED
+
+═══════════════════════════════════════════════════════
+  SMOKE TEST RESULTS
+═══════════════════════════════════════════════════════
+  ✅  1. Module imports
+  ✅  2. Constructor lineage map
+  ✅  3. Jolpica API (2023 season)
+  ✅  4. FastF1 (2023 season)
+  ✅  5. Feature pipeline
+  ✅  6. LightGBM train+predict
+  ✅  7. Directory structure
+
+  7/7 checks passed
+
+  [PASS] All checks passed -- ready for full data fetch!
+
+  Next step:
+    python main.py fetch --start-year 2014 --end-year 2024
+
